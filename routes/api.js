@@ -1,24 +1,12 @@
-const express = require("express");
-const mongoose = require("mongoose");
+const router = require("express").Router();
+const Workout = require("../models/workout.js");
 
-const PORT = process.env.PORT || 3000
-
-const app = express();
-
-app.use(logger("dev"));
-
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-
-app.use(express.static("public"));
-
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/budget", {
-  useNewUrlParser: true,
-  useFindAndModify: false
-});
-
-app.use(require("./routes/api.js"));
-
-app.listen(PORT, () => {
-  console.log(`App running on port ${PORT}!`);
+router.get("/api/workouts", (req, res) => {
+    Workout.find().sort({_id: -1}).limit(1)
+    .then(workout => {
+        res.json(workout);
+    })
+    .catch(err => {
+        res.status(400).json(err);
+    });
 });
