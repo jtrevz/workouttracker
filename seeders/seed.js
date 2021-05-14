@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Workout = require('../models/Workout');
+const Workout = require('./models');
 // const Workout = require('../models/workout.js')
 
 mongoose.connect('mongodb://localhost/workout', {
